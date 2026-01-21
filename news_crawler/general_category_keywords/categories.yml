@@ -1,0 +1,127 @@
+# This configuration file contains keywords to help classify links.
+# The `url_keywords` and `title_keywords` are used to determine if a link
+# belongs to a general category page or a specific topic.
+
+categories:
+  sports:
+    # Keywords in English and Greek to match sports-related content.
+    keywords:
+      - "sports"
+      - "sport"
+      - "football"
+      - "basketball"
+      - "game"
+      - "coach"
+      - "player"
+      - "goal"
+      - "ποδόσφαιρο"
+      - "μπάσκετ"
+      - "αγώνας"
+      - "προπονητής"
+      - "αθλητής"
+      - "γκόλ"
+  politics:
+    # Keywords for politics-related content.
+    keywords:
+      - "politiki"
+      - "politics"
+      - "government"
+      - "election"
+      - "parliament"
+      - "minister"
+      - "κυβέρνηση"
+      - "υπουργός"
+      - "εκλογές"
+      - "βουλή"
+  technology:
+    # Keywords for technology-related content.
+    keywords:
+      - "technology"
+      - "tech"
+      - "gadget"
+      - "app"
+      - "computer"
+      - "smartphone"
+      - "εφαρμογή"
+      - "τεχνολογία"
+      - "υπολογιστής"
+      - "koinwnia"
+      - "politiki"
+  economy:
+    keywords:
+      - "oikonomia"
+      - "economy"
+      - "market"
+      - "agores"
+      - "χρηματιστήριο"
+  health:
+    keywords:
+      - "ygeia"
+      - "health"
+      - "diatrofi"
+      - "iatriki"
+      - "υγεία"
+      - "διατροφή"
+  culture:
+    keywords:
+      - "politismos"
+      - "culture"
+      - "tehni"
+      - "vivlio"
+      - "μουσική"
+      - "κινηματογράφος"
+      - "θέατρο"
+  life:
+    keywords:
+      - "zoi"
+      - "life"
+      - "gynaika"
+      - "lifestyle"
+      - "συνταγή"
+      - "σχέσεις"
+  world:
+    keywords:
+      - "kosmos"
+      - "world"
+      - "international"
+      - "κόσμος"
+  local:
+    keywords:
+      - "ellada"
+      - "local"
+      - "athina"
+      - "thessaloniki"
+      - "Κρήτη"
+      - "Πειραιάς"
+      - "Λάρισα"
+
+general_category_keywords:
+  - "category"
+  - "categories"
+
+irrelevant_keywords:
+  - "widget"
+  - "inview/intalks"
+  - "inview/bulletin"
+  - "privacy"
+  - "advertising"
+  - "terms"
+  - "tavtotita"
+  - "elamefora"
+  - "inview/inshorts"
+  - "contact"
+  - "login"
+  - "subscribe"
+  - "about"
+  - "print"
+  - "pdf"
+  - "amp"
+  - "tag"
+  - "author"
+  - "404"
+  - "search"
+  - "rss"
+  - "tel"
+  - "fax"
+  - "admin"
+  - "help"

@@ -1,0 +1,33 @@
+[
+  {
+    "domain": "athensvoice.gr",
+    "patterns": [
+      "(\\s*-\\s*CITY GUIDE\\s*-\\s*PODCAST\\s*-\\s*\\d+°\\s*)",
+      "(\\s*ΤΑ ΠΙΟ ΔΗΜΟΦΙΛΗ\\s*ΔΕΙΤΕ ΕΠΙΣΗΣ.*)",
+      "(\\s*Έχετε δει \\d+ από \\d+ άρθρα\\.\\s*)"
+    ]
+  },
+  {
+    "domain": "protothema.gr",
+    "patterns": [
+      "(\\[IMPROVED LOGGING\\] - [\\s\\S]*)"
+    ]
+  },
+  {
+    "domain": "in.gr",
+    "patterns": [
+      "(\\s*Πηγή: .*\\s*)",
+      "(\\s*Δείτε επίσης: .*\\s*)",
+      "(\\n\\s*-\\s*.*)+",
+      "(\\n\\s*(Daily\\s+)?Headlines[\\s\\S]*)",
+      "(\\s*Ακολουθήστε το in\\.gr στο Google News.*)"
+    ]
+  },
+  {
+    "domain": "tovima.gr",
+    "patterns": [
+      "(\\s*Διαβάστε περισσότερα\\s*)",
+      "(\\s*© ΤΟ ΒΗΜΑ.*)"
+    ]
+  }
+]
