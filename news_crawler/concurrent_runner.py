@@ -45,13 +45,24 @@ except ImportError:
 def clear_output_directories():
     for folder in [RESULTS_DIR, PREDICTIONS_DIR]:
         if os.path.exists(folder):
-            shutil.rmtree(folder)
-        os.makedirs(folder, exist_ok=True)
+            for filename in os.listdir(folder):
+                file_path = os.path.join(folder, filename)
+                try:
+                    if os.path.isfile(file_path) or os.path.islink(file_path):
+                        os.unlink(file_path)
+                    elif os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                except Exception as e:
+                    print(f'Failed to delete {file_path}. Reason: {e}')
+        else:
+            os.makedirs(folder, exist_ok=True)
 
-    with open(FINAL_LOG_FILE, 'w', encoding='utf-8') as f:
-        f.write("=" * 75 + "\n")
-        f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] STARTING NEW CRAWL SESSION\n")
-        f.write("=" * 75 + "\n")
+    try:
+        with open(FINAL_LOG_FILE, 'w', encoding='utf-8') as f:
+            f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] STARTING NEW CRAWL SESSION\n")
+            f.write("=" * 75 + "\n")
+    except Exception as e:
+        print(f"Could not initialize log file: {e}")
 
 
 def log_to_unified_file(content):

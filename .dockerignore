@@ -1,0 +1,8 @@
+logs/
+results/
+predictions/
+data/
+.venv/
+.venv_new/
+.git/
+__pycache__/

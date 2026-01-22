@@ -57,6 +57,10 @@ CONCURRENT_REQUESTS = 8
 # Limits simultaneous requests per domain. Essential to avoid "net::ERR_NETWORK_CHANGED"
 CONCURRENT_REQUESTS_PER_DOMAIN = 2
 CONCURRENT_REQUESTS_PER_IP = 0
+ITEM_PIPELINES = {
+    'news_crawler.pipelines.MySQLPipeline': 300,
+    'news_crawler.pipelines.CustomJsonPipeline': 400,
+}
 
 # Enable and configure the AutoThrottle extension for dynamic delay management
 AUTOTHROTTLE_ENABLED = True
@@ -68,9 +72,9 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 0.5
 # --- PIPELINE & OUTPUT SETTINGS ---
 
 # Enable the CustomJsonPipeline to structure and save scraped data into .jsonl files
-ITEM_PIPELINES = {
-   'news_crawler.pipelines.CustomJsonPipeline': 300,
-}
+# ITEM_PIPELINES = {
+#    'news_crawler.pipelines.CustomJsonPipeline': 300,
+# }
 
 # Export encoding standard for correct Greek character representation
 FEED_EXPORT_ENCODING = "utf-8"

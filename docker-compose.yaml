@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: news_crawler_db
+      MYSQL_ROOT_PASSWORD: eirini2003
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  crawler:
+    build: .
+    command: python news_crawler/concurrent_runner.py
+    depends_on:
+      db:
+        condition: service_healthy  # Περιμένει να τελειώσει το setup.sql
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=eirini2003
+      - DB_NAME=news_crawler_db
+    volumes:
+      - ./logs:/app/logs
+      - ./results:/app/results
+      - ./predictions:/app/predictions
+
+volumes:
+  mysql_data:
