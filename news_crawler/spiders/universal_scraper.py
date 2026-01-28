@@ -170,7 +170,7 @@ class UniversalSpider(scrapy.Spider):
         url = response.url
 
         # Log at DEBUG level for terminal cleanliness
-        self.logger.debug(f"📄 Scraping content from: {url}")
+        self.logger.debug(f" Scraping content from: {url}")
 
         extracted_data = {}
         try:

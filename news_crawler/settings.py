@@ -1,80 +1,65 @@
-# Scrapy settings for the news_crawler project
-#
-# This file contains settings for core Scrapy functionality,
-# Playwright integration, concurrency, error handling, and AutoThrottle.
+# Scrapy settings for news_crawler project
+# Core configuration for Playwright integration, concurrency, and stability.
 
 BOT_NAME = "news_crawler"
 
 SPIDER_MODULES = ["news_crawler.spiders"]
 NEWSPIDER_MODULE = "news_crawler.spiders"
 
-# --- CORE PROJECT SETTINGS ---
-
-# USER_AGENT: Defines a modern browser identity to prevent simple bot detection
+# Use a modern browser string to minimize basic bot detection
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 
-# Disable robots.txt obedience for broader crawling capability (Standard for news aggregation)
+# Disable robots.txt obedience to maximize news coverage across all sources
 ROBOTSTXT_OBEY = False
 
-# --- PLAYWRIGHT INTEGRATION SETTINGS ---
+#PLAYWRIGHT INTEGRATION
 
-# Enables the Scrapy-Playwright Download Handler for rendering JavaScript-heavy content
+# Enable Playwright handlers for full JavaScript rendering (Client-side rendering)
 DOWNLOAD_HANDLERS = {
     "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
 
-# Defines the reactor required for asynchronous operations (mandatory for Playwright/Asyncio)
+# Asyncio reactor is mandatory for Scrapy-Playwright compatibility
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 
-# Browser settings: Chromium is the most stable engine for headless scraping
+# Use Chromium as the default browser engine in headless mode
 PLAYWRIGHT_BROWSER_TYPE = "chromium"
-
-# Robustness: Increased timeout to handle slow Greek news servers and complex ads
-# 🛠️ STABILITY FIX: We set this to 90s to give slow pages enough time to render
-PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 90000
-
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    # Headless mode is enabled for maximum server performance
     "headless": True,
 }
 
+# Set navigation timeout to 90s to handle slow servers or heavy assets
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 90000
+
 # --- ERROR HANDLING & RETRY LOGIC ---
 
-# Enable Scrapy's built-in retry middleware to handle intermittent network failures
 RETRY_ENABLED = True
-RETRY_TIMES = 3  # Increased retries for better fault tolerance
-# Handle specific status codes often associated with server load or anti-bot measures
+RETRY_TIMES = 3
+# Target HTTP codes related to server load or temporary network drops
 RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408, 429]
 
-# --- CONCURRENCY & THROTTLING (STABILITY OPTIMIZATION) ---
+# --- PERFORMANCE & STABILITY OPTIMIZATION ---
 
-# 🛠️ STABILITY FIX: Reduced global concurrency per worker.
-# Since we run 4 parallel workers in concurrent_runner.py, total concurrency will be 4 * 8 = 32.
-# This is much safer for a standard internet connection and CPU.
+# Limit global concurrency per worker to 8.
+# Total requests will be 32 when running 4 parallel workers.
 CONCURRENT_REQUESTS = 8
 
-# Limits simultaneous requests per domain. Essential to avoid "net::ERR_NETWORK_CHANGED"
+# Strictly limit to 2 simultaneous requests per domain to avoid network instability and bans
 CONCURRENT_REQUESTS_PER_DOMAIN = 2
 CONCURRENT_REQUESTS_PER_IP = 0
+
+# Pipeline order: Primary database insertion followed by JSON backup
 ITEM_PIPELINES = {
     'news_crawler.pipelines.MySQLPipeline': 300,
     'news_crawler.pipelines.CustomJsonPipeline': 400,
 }
 
-# Enable and configure the AutoThrottle extension for dynamic delay management
+# AutoThrottle: Dynamically adjust crawling speed based on server response times
 AUTOTHROTTLE_ENABLED = True
-AUTOTHROTTLE_START_DELAY = 3      # Increased initial delay for "polite" crawling
-AUTOTHROTTLE_MAX_DELAY = 15       # Increased max delay to handle server pressure
-# Target 0.5 requests per second per domain (Lowering this makes the crawl slower but 100% stable)
-AUTOTHROTTLE_TARGET_CONCURRENCY = 0.5
+AUTOTHROTTLE_START_DELAY = 3      # Initial delay in seconds
+AUTOTHROTTLE_MAX_DELAY = 15       # Maximum delay under high load
+AUTOTHROTTLE_TARGET_CONCURRENCY = 0.5 # Target of 0.5 requests/sec per domain
 
-# --- PIPELINE & OUTPUT SETTINGS ---
-
-# Enable the CustomJsonPipeline to structure and save scraped data into .jsonl files
-# ITEM_PIPELINES = {
-#    'news_crawler.pipelines.CustomJsonPipeline': 300,
-# }
-
-# Export encoding standard for correct Greek character representation
+# Ensure Greek characters are correctly represented in exports
 FEED_EXPORT_ENCODING = "utf-8"

@@ -4,16 +4,17 @@ services:
   db:
     image: mysql:8.0
     restart: always
+    env_file: .env
     environment:
-      MYSQL_DATABASE: news_crawler_db
-      MYSQL_ROOT_PASSWORD: eirini2003
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./initdb:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -23,12 +24,13 @@ services:
     command: python news_crawler/concurrent_runner.py
     depends_on:
       db:
-        condition: service_healthy  # Περιμένει να τελειώσει το setup.sql
+        condition: service_healthy
+    env_file: .env
     environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASSWORD=eirini2003
-      - DB_NAME=news_crawler_db
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
     volumes:
       - ./logs:/app/logs
       - ./results:/app/results

@@ -179,7 +179,7 @@ if __name__ == "__main__":
     summary += f"{'TOTAL PIPELINE PERFORMANCE':<30} | {total_p:<10} | {total_a:<10} | {avg_filt:>18.1f}% (AVG)\n"
     summary += "=" * line_width + "\n"
 
-    # --- TABLE 2: STORAGE & DATABASE EFFICIENCY ---
+    # table 2: STORAGE/ DATABASE EFFICIENCY
     total_ops = total_new + total_unchanged + total_updated
 
 
