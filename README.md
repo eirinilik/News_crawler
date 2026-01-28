@@ -12,9 +12,9 @@ The project implements a 4-layer sequential data pipeline:
     Classification: A Random Forest model (97% accuracy) classifies pages into Article, Category, or Other .
 
     Persistence: Structured storage in MySQL with MD5 Hashing for deduplication (64.6% storage efficiency).
+### Project Structure
 
-Project Structure
-
+```text
 .
 ├── docker-compose.yaml      # Orchestrates Crawler and MySQL services
 ├── Dockerfile               # Builds the Python environment with Playwright
@@ -31,17 +31,24 @@ Project Structure
 ├── logs/                    # Execution logs
 ├── results/                 # Exported crawl results
 └── requirements.txt         # Python dependencies
- 
-Quick Start (Docker)
-1. Environment Setup
 
-Create a .env file in the root directory:
+```
+Quick Start (Docker)
+1. Configure Credentials
+
+The .env file is already included in the repository. Open it and update the following variables with your local database settings:
 Code snippet
 
-DB_ROOT_PASSWORD=your_password
+
+Update these with your specific values
+
+DB_ROOT_PASSWORD=eirini2003
+
 DB_NAME=news_crawler_db
 DB_USER=root
-DB_PASSWORD=your_password
+
+DB_PASSWORD=eirini2003
+
 DB_HOST=db
 
 2. Launch the Pipeline
