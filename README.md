@@ -1,6 +1,7 @@
 News Crawler Pipeline: Intelligent Data Acquisition 
 
 An advanced, scalable news crawling and classification pipeline. The system automates the collection of news articles from diverse Greek web sources, utilizing Machine Learning to filter out "noise" (boilerplate) and ensure high-quality data for business intelligence reporting . 
+
 System Architecture
 
 The project implements a 4-layer sequential data pipeline:
