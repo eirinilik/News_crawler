@@ -43,12 +43,14 @@ Code snippet
 
 Update these with your specific values
 
-DB_ROOT_PASSWORD=eirini2003
-
+# Database Configuration
 DB_NAME=news_crawler_db
-DB_USER=root
 
-DB_PASSWORD=eirini2003
+DB_USER=crawler_user
+
+DB_PASSWORD=your_secure_password
+
+DB_ROOT_PASSWORD=your_root_password
 
 DB_HOST=db
 
